@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificaciones Modernas - SIGMA</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.1/sweetalert2.all.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .demo-btn {
+            padding: 15px 20px;
+            border: none;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+
+        .demo-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-error { background: linear-gradient(135deg, #f44336, #d32f2f); }
+        .btn-success { background: linear-gradient(135deg, #4CAF50, #45a049); }
+        .btn-warning { background: linear-gradient(135deg, #FF9800, #F57C00); }
+        .btn-info { background: linear-gradient(135deg, #2196F3, #1976D2); }
+        .btn-custom { background: linear-gradient(135deg, #9C27B0, #7B1FA2); }
+        .btn-dark { background: linear-gradient(135deg, #343a40, #212529); }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-size: 13px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .code-title {
+            background: #4a5568;
+            color: white;
+            padding: 10px 15px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 10px 10px 0 0;
+            font-weight: bold;
+        }
+
+        /* Estilos personalizados para SweetAlert */
+        .swal2-popup {
+            border-radius: 20px !important;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
+        }
+        
+        .swal2-title {
+            font-size: 1.8em !important;
+            font-weight: 700 !important;
+        }
+        
+        .swal2-confirm, .swal2-cancel {
+            border-radius: 25px !important;
+            padding: 12px 30px !important;
+            font-weight: 600 !important;
+            border: none !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+        }
+        
+        .swal-wide {
+            width: 600px !important;
+            max-width: 90vw !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Notificaciones Modernas</h1>
+        <p class="subtitle">Para tu sistema SIGMA</p>
+
+        <!-- SECCIÓN 1: CREDENCIALES Y LOGIN -->
+        <div class="section">
+            <h2 class="section-title">🔐 Credenciales y Autenticación</h2>
+            <div class="button-grid">
+                <button class="demo-btn btn-error" onclick="credencialesIncorrectas()">❌ Credenciales Incorrectas</button>
+                <button class="demo-btn btn-warning" onclick="sesionExpirada()">⏰ Sesión Expirada</button>
+                <button class="demo-btn btn-success" onclick="loginExitoso()">✅ Login Exitoso</button>
+                <button class="demo-btn btn-info" onclick="primerLogin()">👋 Primer Ingreso</button>
+            </div>
+
+            <div class="code-block">
+                <div class="code-title">📋 Credenciales Incorrectas - Código</div>
+                <pre>Swal.fire({
+    title: '🚫 Acceso Denegado',
+    html: `
+        &lt;div style="text-align: center; padding: 20px;"&gt;
+            &lt;div style="font-size: 60px; margin-bottom: 20px;"&gt;🔐&lt;/div&gt;
+            &lt;h3 style="color: #e74c3c; margin-bottom: 15px;"&gt;Credenciales Incorrectas&lt;/h3&gt;
+            &lt;p style="color: #7f8c8d; margin-bottom: 20px;"&gt;Usuario o contraseña incorrectos&lt;/p&gt;
+            &lt;div style="background: #fee; border-left: 4px solid #e74c3c; padding: 15px; border-radius: 5px;"&gt;
+                &lt;p style="margin: 0; color: #c0392b; font-size: 14px;"&gt;
+                    ⚠️ Intento 2 de 3. Después de 3 intentos tu cuenta será bloqueada.
+                &lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    `,
+    showConfirmButton: true,
+    confirmButtonText: 'Intentar de Nuevo',
+    confirmButtonColor: '#e74c3c',
+    showCancelButton: true,
+    cancelButtonText: '¿Olvidaste tu contraseña?',
+    cancelButtonColor: '#95a5a6',
+    backdrop: 'rgba(231,76,60,0.1)',
+    showClass: {
+        popup: 'animate__animated animate__shakeX'
+    }
+});</pre>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 2: OPERACIONES DEL SISTEMA -->
+        <div class="section">
+            <h2 class="section-title">⚙️ Operaciones del Sistema</h2>
+            <div class="button-grid">
+                <button class="demo-btn btn-success" onclick="archivoSubido()">📁 Archivo Procesado</button>
+                <button class="demo-btn btn-info" onclick="procesando()">⏳ Procesando Datos</button>
+                <button class="demo-btn btn-warning" onclick="advertenciaEliminar()">🗑️ Confirmar Eliminación</button>
+                <button class="demo-btn btn-error" onclick="errorConexion()">🌐 Error de Conexión</button>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 3: NOTIFICACIONES ESPECIALES -->
+        <div class="section">
+            <h2 class="section-title">✨ Notificaciones Especiales</h2>
+            <div class="button-grid">
+                <button class="demo-btn btn-custom" onclick="bienvenidaSigma()">🎯 Bienvenida SIGMA</button>
+                <button class="demo-btn btn-success" onclick="felicitaciones()">🎉 Felicitaciones</button>
+                <button class="demo-btn btn-warning" onclick="mantenimiento()">🔧 Mantenimiento</button>
+                <button class="demo-btn btn-dark" onclick="modoOscuro()">🌙 Modo Oscuro</button>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 4: TOAST NOTIFICATIONS -->
+        <div class="section">
+            <h2 class="section-title">🍞 Toast Notifications</h2>
+            <div class="button-grid">
+                <button class="demo-btn btn-success" onclick="toastSuccess()">✅ Toast Éxito</button>
+                <button class="demo-btn btn-error" onclick="toastError()">❌ Toast Error</button>
+                <button class="demo-btn btn-info" onclick="toastInfo()">ℹ️ Toast Info</button>
+                <button class="demo-btn btn-warning" onclick="toastWarning()">⚠️ Toast Advertencia</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============ CREDENCIALES Y LOGIN ============
+        
+        function credencialesIncorrectas() {
+            Swal.fire({
+                title: '🚫 Acceso Denegado',
+                html: `
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 60px; margin-bottom: 20px;">🔐</div>
+                        <h3 style="color: #e74c3c; margin-bottom: 15px;">Credenciales Incorrectas</h3>
+                        <p style="color: #7f8c8d; margin-bottom: 20px;">Usuario o contraseña incorrectos</p>
+                        <div style="background: #fee; border-left: 4px solid #e74c3c; padding: 15px; border-radius: 5px;">
+                            <p style="margin: 0; color: #c0392b; font-size: 14px;">
+                                ⚠️ Intento 2 de 3. Después de 3 intentos fallidos tu cuenta será bloqueada.
+                            </p>
+                        </div>
+                    </div>
+                `,
+                showConfirmButton: true,
+                confirmButtonText: 'Intentar de Nuevo',
+                confirmButtonColor: '#e74c3c',
+                showCancelButton: true,
+                cancelButtonText: '¿Olvidaste tu contraseña?',
+                cancelButtonColor: '#95a5a6',
+                backdrop: 'rgba(231,76,60,0.1)',
+                showClass: {
+                    popup: 'animate__animated animate__shakeX'
+                },
+                customClass: {
+                    popup: 'swal-wide'
+                }
+            });
+        }
+
+        function sesionExpirada() {
+            Swal.fire({
+                title: '⏰ Sesión Expirada',
+                html: `
+                    <div style="text-align: center; padding: 15px;">
+                        <div style="font-size: 50px; margin-bottom: 15px;">⏰</div>
+                        <p style="color: #f39c12; font-size: 18px; margin-bottom: 15px;">Tu sesión ha expirado por inactividad</p>
+                        <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 8px;">
+                            <p style="margin: 0; color: #856404;">🔒 Por tu seguridad, necesitas iniciar sesión nuevamente</p>
+                        </div>
+                    </div>
+                `,
+                confirmButtonText: 'Iniciar Sesión',
+                confirmButtonColor: '#f39c12',
+                backdrop: 'rgba(243,156,18,0.1)',
+                showClass: {
+                    popup: 'animate__animated animate__bounceIn'
+                },
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            });
+        }
+
+        function loginExitoso() {
+            Swal.fire({
+                title: '¡Bienvenido a SIGMA! 🎉',
+                html: `
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 60px; margin-bottom: 20px;">👋</div>
+                        <h3 style="color: #27ae60; margin-bottom: 15px;">Inicio de Sesión Exitoso</h3>
+                        <p style="color: #7f8c8d; margin-bottom: 20px;">¡Hola WILMER! Te damos la bienvenida</p>
+                        <div style="background: #d4edda; border: 1px solid #c3e6cb; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                            <p style="margin: 0; color: #155724;">✅ Último acceso: Hoy 14:30</p>
+                        </div>
+                        <div style="display: flex; justify-content: space-around; margin-top: 20px;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 24px;">📊</div>
+                                <small>Dashboard</small>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 24px;">📋</div>
+                                <small>Actas</small>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 24px;">👥</div>
+                                <small>Usuarios</small>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                confirmButtonText: 'Ir al Dashboard',
+                confirmButtonColor: '#27ae60',
+                timer: 4000,
+                timerProgressBar: true,
+                showClass: {
+                    popup: 'animate__animated animate__bounceInDown'
+                },
+                customClass: {
+                    popup: 'swal-wide'
+                }
+            });
+        }
+
+        function primerLogin() {
+            Swal.fire({
+                title: '👋 ¡Primera vez en SIGMA!',
+                html: `
+                    <div style="padding: 20px;">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="font-size: 50px; margin-bottom: 15px;">🚀</div>
+                            <h3 style="color: #3498db;">¡Bienvenido al Sistema!</h3>
+                        </div>
+                        <div style="text-align: left; background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                            <h4 style="color: #2c3e50; margin-bottom: 15px;">¿Qué puedes hacer aquí?</h4>
+                            <ul style="color: #5a6c7d; line-height: 1.8;">
+                                <li>📋 Crear y gestionar actas</li>
+                                <li>👥 Administrar usuarios</li>
+                                <li>📊 Ver reportes y estadísticas</li>
+                                <li>🔧 Configurar el sistema</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                confirmButtonText: 'Comenzar Tour',
+                showCancelButton: true,
+                cancelButtonText: 'Ir Directo',
+                confirmButtonColor: '#3498db',
+                cancelButtonColor: '#95a5a6',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInUp'
+                },
+                customClass: {
+                    popup: 'swal-wide'
+                }
+            });
+        }
+
+        // ============ OPERACIONES DEL SISTEMA ============
+
+        function archivoSubido() {
+            Swal.fire({
+                title: '📁 ¡Archivo Procesado!',
+                html: `
+                    <div style="padding: 20px;">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="font-size: 50px; margin-bottom: 15px;">✅</div>
+                        </div>
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                <span><strong>📄 Archivo:</strong></span>
+                                <span>datos_empleados.xlsx</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                <span><strong>📊 Registros:</strong></span>
+                                <span style="color: #27ae60; font-weight: bold;">1,247 procesados</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span><strong>⏱️ Tiempo:</strong></span>
+                                <span>2.3 segundos</span>
+                            </div>
+                        </div>
+                        <div style="background: #d4edda; border: 1px solid #c3e6cb; padding: 15px; border-radius: 8px;">
+                            <p style="margin: 0; color: #155724; text-align: center;">
+                                🎉 Datos de WILMER JOHN DURAZNO ZAPATANGA cargados desde AD
+                            </p>
+                        </div>
+                    </div>
+                `,
+                confirmButtonText: 'Ver Resultados',
+                confirmButtonColor: '#27ae60',
+                timer: 5000,
+                timerProgressBar: true,
+                showClass: {
+                    popup: 'animate__animated animate__bounceInUp'
+                },
+                customClass: {
+                    popup: 'swal-wide'
+                }
+            });
+        }
+
+        function procesando() {
+            Swal.fire({
+                title: '⏳ Procesando Datos...',
+                html: `
+                    <div style="text-align: center; padding: 30px;">
+                        <div style="margin-bottom: 30px;">
+                            <div style="width: 60px; height: 60px; border: 6px solid #f3f3f3; border-top: 6px solid #3498db; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+                        </div>
+                        <h3 style="color: #3498db; margin-bottom: 15px;">Conectando con Active Directory</h3>
+                        <p style="color: #7f8c8d; margin-bottom: 20px;">Buscando información del usuario...</p>
+                        <div style="background: #e3f2fd; padding: 15px; border-radius: 8px;">
+                            <p style="margin: 0; color: #1976d2; font-size: 14px;">
+                                📡 Estado: Consultando base de datos<br>
+                                ⏱️ Tiempo estimado: 15-30 segundos
+                            </p>
+                        </div>
+                    </div>
+                    <style>
+                        @keyframes spin {
+                            0% { transform: rotate(0deg); }
+                            100% { transform: rotate(360deg); }
+                        }
+                    </style>
+                `,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showConfirmButton: false,
+                backdrop: 'rgba(52,152,219,0.1)',
+                showClass: {
+                    popup: 'animate__animated animate__zoomIn'
+                },
+                customClass: {
+                    popup: 'swal-wide'
+                }
+            });
+            
+            // Simular que termina después de 3 segundos
+            setTimeout(() => {
+                Swal.close();
+                archivoSubido();
+            }, 3000);
+        }
+
+        function advertenciaEliminar() {
+            Swal.fire({
+                title: '🗑️ ¿Confirmar Eliminación?',
+                html: `
+                    <div style="padding: 20px;">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="font-size: 60px; margin-bottom: 15px; color: #e74c3c;">⚠️</div>
+                            <h3 style="color: #e74c3c;">Esta acción no se puede deshacer</h3>
+                        </div>
+                        <div style="background: #fee; border-left: 4px solid #e74c3c; padding: 20px; border-radius: 5px;">
+                            <h4 style="color: #c0392b; margin-bottom: 10px;">Se eliminarán:</h4>
+                            <ul style="color: #c0392b; text-align: left;">
+                                <li>📋 Acta #2024-015</li>
+                                <li>📎 3 archivos adjuntos</li>
+                                <li>💬 12 comentarios asociados</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                showCancelButton: true,
+                confirmButtonText: 'Sí, Eliminar',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#e74c3c',
+                cancelButtonColor: '#6c757d',
+                focusCancel: true,
+                backdrop: 'rgba(231,76,60,0.1)',
+                showClass: {
+                    popup: 'animate__animated animate__headShake'
+                },
+                customClass: {
+                    popup: 'swal-wide'
+                }
+            });
+        }
+
+        function errorConexion() {
+            Swal.fire({
+                title: '🌐 Error de Conexión',
+                html: `
+                    <div style="padding: 20px;">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="font-size: 60px; margin-bottom: 15px; color: #e74c3c;">📡</div>
+                            <h3 style="color: #e74c3c;">No se pudo conectar al servidor</h3>
+                        </div>
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                            <h4 style="color: #2c3e50; margin-bottom: 15px;">Detalles del error:</h4>
+                            <div style="font-family: monospace; background: #2d3748; color: #e2e8f0; padding: 15px; border-radius: 5px; font-size: 12px;">
+                                ERROR: CONNECTION_TIMEOUT<br>
+                                HOST: sigma-server.local<br>
+                                PORT: 8080<br>
+                                STATUS: UNREACHABLE
+                            </div>
+                        </div>
+                    </div>
+                `,
+                confirmButtonText: 'Reintentar Ahora',
+                showCancelButton: true,
+                cancelButtonText: 'Trabajar Sin Conexión',
+                confirmButtonColor: '#e74c3c',
+                cancelButtonColor: '#6c757d',
+                backdrop: 'rgba(231,76,60,0.1)',
+                showClass: {
+                    popup: 'animate__animated animate__swing'
+                },
+                customClass: {
+                    popup: 'swal-wide'
+                }
+            });
+        }
+
+        // ============ NOTIFICACIONES ESPECIALES ============
+
+        function bienvenidaSigma() {
+            Swal.fire({
+                title: '🎯 Bienvenido a SIGMA',
+                html: `
+                    <div style="padding: 20px;">
+                        <div style="text-align: center; margin-bottom: 30px;">
+                            <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                                <div style="font-size: 40px; margin-bottom: 10px;">🎯</div>
+                                <h2 style="margin: 0; font-size: 28px;">SIGMA</h2>
+                                <p style="margin: 5px 0 0 0; opacity: 0.9;">Sistema de Gestión de Actas</p>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+                                <div style="font-size: 30px; margin-bottom: 10px;">🏢</div>
+                                <strong>Tecnasa</strong>
+                                <p style="margin: 5px 0 0 0; font-size: 12px; color: #666;">Servimos Confianza</p>
+                            </div>
+                            <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+                                <div style="font-size: 30px; margin-bottom: 10px;">🤝</div>
+                                <strong>Grupo Consenso</strong>
+                                <p style="margin: 5px 0 0 0; font-size: 12px; color: #666;">Alianza Estratégica</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                confirmButtonText: 'Comenzar a Usar SIGMA',
+                confirmButtonColor: '#667eea',
+                showClass: {
+                    popup: 'animate__animated animate__zoomIn'
+                },
+                backdrop: 'rgba(102,126,234,0.1)',
+                customClass: {
+                    popup: 'swal-wide'
+                }
+            });
+        }
+
+        function felicitaciones() {
+            Swal.fire({
+                title: '🎉 ¡Felicitaciones!',
+                html: `
+                    <div style="text-align: center; padding: 30px;">
+                        <div style="font-size: 80px; margin-bottom: 20px;">🏆</div>
+                        <h2 style="color: #f39c12; margin-bottom: 20px;">¡Has completado tu primer acta!</h2>
+                        <div style="background: #d4edda; border: 1px solid #c3e6cb; padding: 15px; border-radius: 8px;">
+                            <p style="margin: 0; color: #155724;">
+                                🎯 ¡Excelente trabajo! Tu productividad está mejorando
+                            </p>
+                        </div>
+                    </div>
+                `,
+                confirmButtonText: '¡Continuar!',
+                confirmButtonColor: '#f39c12',
+                showClass: {
+                    popup: 'animate__animated animate__bounceIn'
+                },
+                backdrop: 'rgba(243,156,18,0.1)'
+            });
+        }
+
+        function mantenimiento() {
+            Swal.fire({
+                title: '🔧 Mantenimiento Programado',
+                html: `
+                    <div style="padding: 20px;">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="font-size: 60px; margin-bottom: 15px;">⚙️</div>
+                            <h3 style="color: #f39c12;">El sistema estará en mantenimiento</h3>
+                        </div>
+                        <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 20px; border-radius: 10px;">
+                            <p style="color: #856404; text-align: center; margin: 0;">
+                                📅 <strong>Fecha:</strong> Domingo 28 de Julio<br>
+                                🕐 <strong>Horario:</strong> 02:00 AM - 06:00 AM<br>
+                                ⏱️ <strong>Duración:</strong> Aproximadamente 4 horas
+                            </p>
+                        </div>
+                    </div>
+                `,
+                confirmButtonText: 'Entendido',
+                confirmButtonColor: '#f39c12',
+                showClass: {
+                    popup: 'animate__animated animate__bounceInLeft'
+                },
+                customClass: {
+                    popup: 'swal-wide'
+                }
+            });
+        }
+
+        function modoOscuro() {
+            Swal.fire({
+                title: '🌙 Modo Oscuro Activado',
+                html: `
+                    <div style="background: #1a1a1a; color: white; padding: 30px; border-radius: 15px;">
+                        <div style="text-align: center; margin-bottom: 25px;">
+                            <div style="font-size: 60px; margin-bottom: 15px;">🌙</div>
+                            <h3 style="color: #64b5f6;">¡Bienvenido al lado oscuro!</h3>
+                        </div>
+                        <div style="background: #2d2d2d; padding: 20px; border-radius: 10px;">
+                            <h4 style="color: #81c784; margin-bottom: 15px;">✨ Beneficios del modo oscuro:</h4>
+                            <ul style="color: #e0e0e0; text-align: left; line-height: 1.6;">
+                                <li>👁️ Reduce la fatiga visual</li>
+                                <li>🔋 Ahorra batería</li>
+                                <li>🌃 Ideal para trabajar de noche</li>
+                                <li>😎 Se ve más profesional</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                confirmButtonText: '¡Me Encanta!',
+                showCancelButton: true,
+                cancelButtonText: 'Volver al Modo Claro',
+                confirmButtonColor: '#64b5f6',
+                cancelButtonColor: '#757575',
+                background: '#1a1a1a',
+                color: '#ffffff',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                customClass: {
+                    popup: 'swal-wide'
+                }
+            });
+        }
+
+        // ============ TOAST NOTIFICATIONS ============
+
+        function toastSuccess() {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer);
+                    toast.addEventListener('mouseleave', Swal.resumeTimer);
+                }
+            });
+
+            Toast.fire({
+                icon: 'success',
+                title: '¡Datos guardados exitosamente!',
+                background: '#d4edda',
+                color: '#155724'
+            });
+        }
+
+        function toastError() {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer);
+                    toast.addEventListener('mouseleave', Swal.resumeTimer);
+                }
+            });
+
+            Toast.fire({
+                icon: 'error',
+                title: 'Error al procesar la solicitud',
+                background: '#f8d7da',
+                color: '#721c24'
+            });
+        }
+
+        function toastInfo() {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3500,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer);
+                    toast.addEventListener('mouseleave', Swal.resumeTimer);
+                }
+            });
+
+            Toast.fire({
+                icon: 'info',
+                title: 'Nueva actualización disponible',
+                background: '#d1ecf1',
+                color: '#0c5460'
+            });
+        }
+
+        function toastWarning() {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3500,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer);
+                    toast.addEventListener('mouseleave', Swal.resumeTimer);
+                }
+            });
+
+            Toast.fire({
+                icon: 'warning',
+                title: 'Sesión expirará en 5 minutos',
+                background: '#fff3cd',
+                color: '#856404'
+            });
+        }
+
+        // Función de prueba para verificar que todo funciona
+        console.log('✅ Todas las funciones de notificación están cargadas correctamente');
+        
+    </script>
+
+    <!-- INFORMACIÓN ADICIONAL -->
+    <div class="section">
+        <h2 class="section-title">📚 Cómo Usar</h2>
+        <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+            <h3 style="color: #1976d2; margin-bottom: 15px;">🎯 Para usar en tu proyecto:</h3>
+            <ol style="color: #1976d2; line-height: 1.8;">
+                <li><strong>Incluye las librerías CDN</strong> (SweetAlert2 y Animate.css)</li>
+                <li><strong>Copia la función</strong> que necesites de arriba</li>
+                <li><strong>Personaliza</strong> el texto y colores según tu caso</li>
+                <li><strong>Llama la función</strong> cuando la necesites</li>
+            </ol>
+        </div>
+
+        <div class="code-block">
+            <div class="code-title">📦 Librerías CDN Necesarias</div>
+            <pre>&lt;!-- SweetAlert2 --&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.1/sweetalert2.all.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- Animate.css (para animaciones) --&gt;
+&lt;link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet"&gt;</pre>
+        </div>
+
+        <div class="code-block">
+            <div class="code-title">🚀 Ejemplo de Uso Simple</div>
+            <pre>// Para tu caso específico de credenciales incorrectas:
+function mostrarErrorCredenciales() {
+    Swal.fire({
+        title: '🚫 Acceso Denegado',
+        text: 'Usuario o contraseña incorrectos',
+        icon: 'error',
+        confirmButtonText: 'Intentar de Nuevo',
+        confirmButtonColor: '#e74c3c',
+        showClass: {
+            popup: 'animate__animated animate__shakeX'
+        }
+    });
+}
+
+// Llamar la función cuando sea necesario:
+mostrarErrorCredenciales();</pre>
+        </div>
+
+        <div style="background: #d4edda; border: 1px solid #c3e6cb; padding: 20px; border-radius: 10px; text-align: center;">
+            <h3 style="color: #155724; margin-bottom: 15px;">🎉 ¡Todo Listo!</h3>
+            <p style="color: #155724; margin: 0;">
+                Ahora tienes notificaciones súper modernas y profesionales para tu sistema SIGMA.<br>
+                <strong>¡Sin errores en consola!</strong> ✅
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>
